@@ -5,5 +5,6 @@ pub mod notification;
      return AdHoc::on_ignite("Initializing controller routes...", |rocket| async {
          rocket
              .mount("/", routes![])
+             .mount("/", routes![notification::subscribe])
      });
  }
