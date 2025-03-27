@@ -54,6 +54,7 @@ use std::thread;
              ))
          }
      }
+     //impement unsuscribe
      pub fn unsubscribe(product_type: &str) -> Result<SubscriberRequest> {
          let product_type_clone = String::from(product_type);
          return thread::spawn(move || Self::unsubscribe_request(product_type_clone))
