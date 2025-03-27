@@ -94,3 +94,15 @@ We use RwLock because the system handles many more reads than writes. It’s com
 Rust takes a much stricter approach to memory safety than Java. While Java allows you to modify static variables freely through static methods, Rust prevents this to avoid data races and ensure thread safety. In Rust, you can’t just create a static Vec or DashMap and change it at will. You need proper synchronization tools to manage shared mutable state safely. That’s where libraries like lazy_static come in—they let you safely initialize static data with the necessary synchronization (like Mutex or RwLock) so the data can be used safely across threads.
 
 #### Reflection Subscriber-2
+1. Have you explored things outside of the steps in the tutorial, for example: src/lib.rs? If not, explain why you did not do so. If yes, explain things that you have learned from those other parts of code.
+
+I haven’t explored beyond the tutorial instructions yet. My focus has been on completing the key components outlined in the guide, such as the controller, service, repository, and model modules. Since lib.rs wasn’t referenced in the tutorial, I chose to stick with the core tasks first before venturing into other parts of the codebase.
+
+2. Since you have completed the tutorial by now and have tried to test your notification system by spawning multiple instances of Receiver, explain how Observer pattern eases you to plug in more subscribers. How about spawning more than one instance of Main app, will it still be easy enough to add to the system?
+
+The Observer pattern makes adding new subscribers very simple. A subscriber just needs to send a subscription request, and the system adds it to the list of subscribers for the relevant topic. When a notification is sent, the system automatically goes through that list and delivers the notification to each subscriber. This modular setup means you can add new subscribers without changing the core logic.
+As for running multiple instances of the Main app, it’s also manageable. Each Receiver can point to a specific instance using the APP_PUBLISHER_ROOT_URL, or you could use a routing mechanism to direct Receivers to the right instance. However, because each Main app keeps its own internal subscriber list, their data may differ unless a shared backend (like a database) is used to keep all instances synchronized.
+
+3. Have you tried to make your own Tests, or enhance documentation on your Postman collection? If you have tried those features, tell us whether it is useful for your work (it can be your tutorial work or your Group Project).
+
+I haven’t created custom tests or added documentation to the Postman collection yet. I’ve been concentrating on getting the tutorial features working correctly first. That said, I understand the importance of testing and documentation—they’re incredibly helpful for verifying API behavior and making the system easier to understand and work with in future projects.
